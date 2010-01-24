@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"
+    "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<title>Minus2</title>
+</head>
+<body>
+<pre>
+<script src="../Common.js"></script>
+<script src="../tokens.js"></script>
+<script src="../code_gen.js"></script>
+<script src="../specialize.js"></script>
+<script src="../json2.js"></script>
+
+<script>
+   Function.prototype.specialize = net.higherorder.jeene.Jeene.make();
+    source_fun = function(a,b,c) {
+         return a - b - c;
+    };
+    source = source_fun.toSource? source_fun.toSource() : source_fun.toString();
+
+    document.write("Original Source:\n");
+    document.write(source);
+    document.write("\n\nEnvironment: \n");
+
+    var env = {a:2, b:3};
+    document.write(JSON.stringify(env, ['a','b','c']));
+
+    res = source_fun.specialize(env);
+
+    document.write("\n\nResult: \n\n");
+    source = res.toSource ? res.toSource() : res.toString();
+    document.write(source);
+
+
+
+
+</script>
+</pre>
+</body>
+</html>

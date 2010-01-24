@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"
+    "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<title>String1</title>
+</head>
+<body>
+<pre>
+<script src="../Common.js"></script>
+<script src="../tokens.js"></script>
+<script src="../code_gen.js"></script>
+<script src="../specialize.js"></script>
+<script src="../json2.js"></script>
+
+<script>
+   
+Function.prototype.specialize = net.higherorder.jeene.Jeene.make();
+
+var mk_tag = function(tag,clz,cont) {
+   return "["+tag+" class='"+clz+"']"+cont+"[/"+tag+"]";
+};
+
+document.write(mk_tag.toSource ? mk_tag.toSource() : mk_tag.toString());
+
+var mk_div_green = mk_tag.specialize({tag:'div', clz: 'green'});
+
+
+document.write("\n\n-----\n\n");
+document.write(mk_div_green("Pratt rocks!"));
+//result: [div class='green'>Pratt rocks!</div>
+
+document.write("\n\n-----\n\n");
+document.write(mk_div_green.toSource ? mk_div_green.toSource() : mk_div_green.toString());
+//result:
+//(function (cont) {return ("[div class='green'>" + cont) + "</div>";})
+
+
+
+</script>
+</pre>
+</body>
+</html>

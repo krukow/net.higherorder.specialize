@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"
+    "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<title>Performance simple example 1</title>
+</head>
+<body>
+<pre>
+<script src="../Common.js"></script>
+<script src="../tokens.js"></script>
+<script src="../code_gen.js"></script>
+<script src="../specialize.js"></script>
+<script src="../json2.js"></script>
+
+<script>
+   
+    Function.prototype.specialize = net.higherorder.jeene.Jeene.make();
+  
+    source_fun = function(tag,clz,cont) {
+         return "["+tag+" class='"+clz+"']"+cont+"[/"+tag+"]";
+    };
+    source = source_fun.toSource? source_fun.toSource() : source_fun.toString();
+
+    document.write("Normal:\n\n");
+    var start,stop,i,res;
+    start = +new Date;
+    for (i=0;i<100000;i++) {
+        source_fun("div","green",String(i));
+        if (i === 500)
+              res = source_fun("div","green",String(i));
+    }
+    stop = +new Date;
+    
+    document.write(res+": "+(stop-start));
+    document.write("\n\nPeval.\n\n");
+    start = +new Date;
+    var f = source_fun.specialize({tag:'div', clz:'green'});
+    for (i=0;i<100000;i++) {
+        f(String(i));
+        if (i === 500)
+              res = f(String(i));
+    }
+    stop = +new Date;
+    
+    document.write(res+": "+(stop-start));
+    document.write("\n\nDone.\n\n");
+    
+
+
+
+</script>
+</pre>
+</body>
+</html>
